@@ -133,7 +133,7 @@ module "eks-cluster" {
   }
 
   eks_managed_node_groups = {
-    infra-mepro = {
+    infra = {
       # name = format("%s-%s", "infra", var.app_prefix)
       # name = format("%s-%s-infra-nodeworker", var.env_prefix, var.app_prefix)
       #TODO: Set the EKS Dev NodeGroup Instance Type & Number of Nodes
