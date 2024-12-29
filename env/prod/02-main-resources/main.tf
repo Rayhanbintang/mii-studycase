@@ -6,6 +6,19 @@ variable "tags" {
   type        = map(string)
 }
 
+variable "app_master_prefix" {
+  type = string
+}
+
+variable "app_env_prefix" {
+  type = string
+}
+
+variable "app_name_prefix" {
+  type = string
+}
+variable "elasticache_redis_clusters" {
+}
 // -----------------------------------------------------------------------------------------------//
 // --------------------------------   TF PROVIDER   ----------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
@@ -60,5 +73,15 @@ terraform {
 module "main_resources" {
   source = "../../modules/02-main-resources"
   tags   = var.tags
-  
+
+  bastion_ec2_instance_type = "t3.nano"
+  bastion_ec2_ebs_optimized = true #enable this when using instance type that listed here https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html#ebs-optimization-support
+  bastion_ebs_size          = 50
+  bastion_ebs_type          = "gp3"
+  bastion_ebs_iops          = 3000 #set this value if using gp3 or io1
+  bastion_ebs_throughput    = 125  #set this value if using gp3 or io1
+  ec2_keypair_name          = "bastion-keypair"
+
+
+  elasticache_redis_clusters = var.elasticache_redis_clusters
 }

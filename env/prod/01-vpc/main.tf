@@ -6,6 +6,22 @@ variable "tags" {
   type        = map(string)
 }
 
+variable "app_master_prefix" {
+  type = string
+}
+
+variable "app_env_prefix" {
+  type = string
+}
+
+variable "app_name_prefix" {
+  type = string
+}
+
+variable "elasticache_redis_clusters" {
+}
+
+
 // -----------------------------------------------------------------------------------------------//
 // --------------------------------   TF PROVIDER   ----------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
