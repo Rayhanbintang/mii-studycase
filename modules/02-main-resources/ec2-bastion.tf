@@ -6,7 +6,6 @@ resource "aws_instance" "ec2_bastion" {
   instance_initiated_shutdown_behavior = "stop"
 
   #TODO: Change back the AMI to use the HArdened AMI
-  # ami                    = "ami-0da2d702dc1ff462f"
   # ami                    = data.aws_ami.ec2_hardened_ami.id
   ami                    = var.ec2_hardened_ami_id
   subnet_id              = tolist(data.aws_subnet_ids.private_subnets.ids)[0]

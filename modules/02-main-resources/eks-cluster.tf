@@ -13,8 +13,8 @@ module "eks-cluster" {
   ]
 
   cluster_timeouts = {
-    create  = "20m"
-    destroy = "20m"
+    create  = "30m"
+    destroy = "30m"
   }
 
   #TODO: cluster_endpoint_public_access need to be set to true during provisioning, and can be disabled after the provisioning of EKS Add-ons is completed

@@ -112,9 +112,9 @@ variable "bastion_ebs_throughput" {
 #   description = "map of ECR repositories, along with their parameters"
 # }
 
-# variable "elasticache_redis_clusters" {
-#   description = "List of Elasticache Redis instances to be provisioned"
-# }
+variable "elasticache_redis_clusters" {
+  description = "List of Elasticache Redis instances to be provisioned"
+}
 
 variable "ec2_hardened_ami_id" {
   type = string
