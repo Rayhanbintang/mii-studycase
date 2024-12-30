@@ -1,0 +1,37 @@
+apiVersion: karpenter.sh/v1alpha5
+kind: Provisioner
+metadata:
+  name: apigw
+spec:
+  labels:
+    purpose: apigw
+  requirements:
+    - key: "karpenter.k8s.aws/instance-category"
+      operator: In
+      values: ["c"]
+    - key: "karpenter.k8s.aws/instance-cpu"
+      operator: In
+      values: ["2", "4"]
+    - key: "karpenter.k8s.aws/instance-hypervisor"
+      operator: In
+      values: ["nitro"]
+    - key: "topology.kubernetes.io/zone"
+      operator: In
+      values: ["ap-southeast-3a", "ap-southeast-3b"]
+    - key: "kubernetes.io/arch"
+      operator: In
+      values: ["amd64"]
+    - key: "karpenter.sh/capacity-type" # If not included, the webhook for the AWS cloud provider will default to on-demand
+      operator: In
+      values: ["on-demand"]
+  kubeletConfiguration:
+    containerRuntime: containerd
+    maxPods: 110
+  limits:
+    resources:
+      cpu: 10
+  consolidation:
+    enabled: true
+  providerRef:
+    name: default
+  ttlSecondsUntilExpired: 86400 # 1 Day(s) = 1 * 24 * 60 * 60 Seconds

@@ -1,0 +1,23 @@
+apiVersion: karpenter.k8s.aws/v1alpha1
+kind: AWSNodeTemplate
+metadata:
+  name: default
+spec:
+  subnetSelector:
+    karpenter.sh/discovery: ${eks_cluster_name}
+  securityGroupSelector:
+    karpenter.sh/discovery: ${eks_cluster_name}
+  amiSelector: ${eks_hardened_ami_id} 
+  instanceProfile: ${node_role_arn}
+    blockDeviceMappings:
+      - deviceName: /dev/xvda
+        ebs:
+          volumeSize: 50Gi
+          volumeType: gp3
+          iops: 3000
+          encrypted: true
+          kmsKeyID: ${kms_cmk_ebs_arn} 
+          deleteOnTermination: true
+          throughput: 125
+    tags:
+      karpenter.sh/discovery: ${eks_cluster_name}

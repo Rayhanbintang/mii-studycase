@@ -134,11 +134,8 @@ module "eks-cluster" {
 
   eks_managed_node_groups = {
     infra = {
-      # name = format("%s-%s", "infra", var.app_prefix)
-      # name = format("%s-%s-infra-nodeworker", var.env_prefix, var.app_prefix)
-      #TODO: Set the EKS Dev NodeGroup Instance Type & Number of Nodes
       name                  = format("infra-%s-%s", var.env_prefix, var.app_prefix)
-      instance_types        = ["m5.large"]
+      instance_types        = var.infra_instance_types
       capacity_type         = "ON_DEMAND"
       create_security_group = false
 

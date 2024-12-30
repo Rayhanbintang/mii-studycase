@@ -1,12 +1,9 @@
 resource "aws_instance" "ec2_bastion" {
-  # checkov:skip=CKV_AWS_8: EBS will be encrypted
   disable_api_termination              = true
   monitoring                           = true
   ebs_optimized                        = var.bastion_ec2_ebs_optimized
   instance_initiated_shutdown_behavior = "stop"
 
-  #TODO: Change back the AMI to use the HArdened AMI
-  # ami                    = data.aws_ami.ec2_hardened_ami.id
   ami                    = var.ec2_hardened_ami_id
   subnet_id              = tolist(data.aws_subnet_ids.private_subnets.ids)[0]
   vpc_security_group_ids = [aws_security_group.bastion.id]
@@ -25,7 +22,6 @@ resource "aws_instance" "ec2_bastion" {
     volume_type = var.bastion_ebs_type
     volume_size = var.bastion_ebs_size
     device_name = "/dev/xvda"
-    #TODO: Re-enable EBS Encryption using KMS-CMK in the real environment
     encrypted             = true
     kms_key_id            = data.aws_kms_key.kms_cmk_ebs.arn
     delete_on_termination = true

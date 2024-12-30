@@ -18,8 +18,7 @@ variable "app_name_prefix" {
   type = string
 }
 
-variable "elasticache_redis_clusters" {
-}
+
 
 
 // -----------------------------------------------------------------------------------------------//
